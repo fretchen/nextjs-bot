@@ -29,7 +29,7 @@ function RightText({ messages }) {
 }
 
 // Define the InputWithButton component
-function InputWithButton({ addMessage }) {
+function InputWithButton({ addMessage, resetMessages }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -39,6 +39,10 @@ function InputWithButton({ addMessage }) {
   const handleButtonClick = () => {
     addMessage(inputValue);
     setInputValue("");
+  };
+
+  const handleResetClick = () => {
+    resetMessages();
   };
 
   return (
@@ -52,6 +56,9 @@ function InputWithButton({ addMessage }) {
       <button onClick={handleButtonClick} className={styles.sendButton}>
         Send
       </button>
+      <button onClick={handleResetClick} className={styles.resetButton}>
+        Reset
+      </button>
     </div>
   );
 }
@@ -64,10 +71,14 @@ function ChatRegion() {
     setMessages((prevMessages) => [...prevMessages, message]);
   };
 
+  const resetMessages = () => {
+    setMessages([]);
+  };
+
   return (
     <div className={styles.right}>
       <RightText messages={messages} />
-      <InputWithButton addMessage={addMessage} />
+      <InputWithButton addMessage={addMessage} resetMessages={resetMessages} />
     </div>
   );
 }
