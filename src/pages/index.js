@@ -19,8 +19,9 @@ function LeftRegion() {
 function RightRegion() {
   return (
     <div className={styles.right}>
-      I am on the right.
-      {/* Content for the right region goes here */}
+      <p>I am on the right.</p>
+      <input type="text" className={styles.inputField} />
+      <button className={styles.sendButton}>Send</button>
     </div>
   );
 }
