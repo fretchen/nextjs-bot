@@ -1,10 +1,24 @@
 .main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+}
+
+.left {
+  flex: 1; /* This will make sure your left region takes up half the width of the main container */
+  /* Add your other styles here */
+  height: 100%; /* This will make sure your left region takes up the entire height of the main container */
+}
+
+.right {
+  flex: 1; /* This will make sure your right region takes up half the width of the main container */
+  /* Add your other styles here */
+  height: 100%; /* This will make sure your left region takes up the entire height of the main container */
+  background-color:white; /* This will set the background color of the right region to white */
+  /* Add your other styles here */
 }
 
 .description {

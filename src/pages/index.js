@@ -5,6 +5,26 @@ import styles from "@/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Define the LeftRegion component
+function LeftRegion() {
+  return (
+    <div className={styles.left}>
+      I am on the left.
+      {/* Content for the left region goes here */}
+    </div>
+  );
+}
+
+// Define the RightRegion component
+function RightRegion() {
+  return (
+    <div className={styles.right}>
+      I am on the right.
+      {/* Content for the right region goes here */}
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -18,9 +38,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>We will try to make some simple javascript work here. </p>
-        </div>
+        <LeftRegion />
+        <RightRegion />
       </main>
     </>
   );
