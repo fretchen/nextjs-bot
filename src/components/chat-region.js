@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import styles from "./chat-region.module.css";
 
-// Define the RightText component
+function MessageBox({ message }) {
+  return <div className={styles.messageBox}>{message}</div>;
+}
+
+function AnswerBox() {
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  let randomString = "";
+  for (let i = 0; i < 20; i++) {
+    randomString += letters[Math.floor(Math.random() * letters.length)];
+  }
+
+  return <div className={styles.answerBox}>{randomString}</div>;
+}
+
 function RightText({ messages }) {
   return (
     <div className={styles.right}>
       {messages.map((message, index) => (
-        <p key={index}>{message}</p>
+        <React.Fragment key={index}>
+          <MessageBox message={message} />
+          <AnswerBox />
+        </React.Fragment>
       ))}
     </div>
   );

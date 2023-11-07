@@ -18,6 +18,22 @@
   margin-right: 10px;
 }
 
+.messageBox {
+  text-align: right;
+  background-color: lightblue;
+  margin-left: 10px; 
+  margin-bottom: 10px;
+  /* Add other styles as needed */
+}
+
+.answerBox {
+  text-align: left;
+  background-color: lightgreen;
+  margin-right: 10px; 
+  margin-bottom: 10px;
+  /* Add other styles as needed */
+}
+
 .sendButton {
   background-color: #4CAF50; /* Green */
   border: none;
