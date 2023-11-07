@@ -1,0 +1,4 @@
+.left {
+  flex: 1; /* This will make sure your left region takes up half the width of the main container */
+  /* Add your other styles here */
+}
