@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import styles from "./chat-region.module.css";
 
 // Define the RightText component
-function RightText({ text }) {
+function RightText({ messages }) {
   return (
     <div className={styles.right}>
-      <p>{text}</p>
+      {messages.map((message, index) => (
+        <p key={index}>{message}</p>
+      ))}
     </div>
   );
 }
 
 // Define the InputWithButton component
-function InputWithButton({ setText }) {
+function InputWithButton({ addMessage }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -19,7 +21,7 @@ function InputWithButton({ setText }) {
   };
 
   const handleButtonClick = () => {
-    setText(inputValue);
+    addMessage(inputValue);
     setInputValue("");
   };
 
@@ -40,12 +42,16 @@ function InputWithButton({ setText }) {
 
 // Define the ChatRegion component
 function ChatRegion() {
-  const [text, setText] = useState("I am on the right and get text.");
+  const [messages, setMessages] = useState(["I am on the right and get text."]);
+
+  const addMessage = (message) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  };
 
   return (
     <div className={styles.right}>
-      <RightText text={text} />
-      <InputWithButton setText={setText} />
+      <RightText messages={messages} />
+      <InputWithButton addMessage={addMessage} />
     </div>
   );
 }
