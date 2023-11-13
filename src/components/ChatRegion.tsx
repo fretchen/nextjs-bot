@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import styles from "./chat-region.module.css";
 
-function MessageBox({ message }) {
+
+type MessageBoxProps = {
+  message: string;
+};
+
+function MessageBox({ message }: MessageBoxProps) {
   return <div className={styles.messageBox}>{message}</div>;
 }
 
@@ -15,7 +20,7 @@ function AnswerBox() {
   return <div className={styles.answerBox}>{randomString}</div>;
 }
 
-function RightText({ messages }) {
+function RightText({messages}: { messages : string[] }) {
   return (
     <div className={styles.right}>
       {messages.map((message, index) => (
@@ -29,10 +34,16 @@ function RightText({ messages }) {
 }
 
 // Define the InputWithButton component
-function InputWithButton({ addMessage, resetMessages }) {
+
+type InputWithButtonProps = {
+  addMessage: (message: string) => void;
+  resetMessages: () => void;
+};
+
+function InputWithButton({ addMessage, resetMessages }: InputWithButtonProps) {
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
@@ -67,8 +78,8 @@ function InputWithButton({ addMessage, resetMessages }) {
 function ChatRegion() {
   const [messages, setMessages] = useState(["I am on the right and get text."]);
 
-  const addMessage = (message) => {
-    setMessages((prevMessages) => [...prevMessages, message]);
+  const addMessage = (message:string):void => {
+    setMessages((prevMessages: string[]) => [...prevMessages, message]);
   };
 
   const resetMessages = () => {
