@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import styles from "./chat-region.module.css";
 
 import { useChat } from "ai/react";
-function MessageBox({ message }) {
+
+type MessageBoxProps = {
+  message: string;
+};
+
+function MessageBox({ message }: MessageBoxProps) {
   return <div className={styles.messageBox}>{message}</div>;
 }
 
@@ -18,7 +23,7 @@ function AnswerBox() {
   return <div className={styles.answerBox}>{randomString}</div>;
 }
 
-function RightText({ messages }) {
+function RightText({messages}: { messages : string[] }) {
   return (
     <div className={styles.right}>
       {messages.map((message, index) => (
@@ -32,10 +37,16 @@ function RightText({ messages }) {
 }
 
 // Define the InputWithButton component
-function InputWithButton({ addMessage, resetMessages }) {
+
+type InputWithButtonProps = {
+  addMessage: (message: string) => void;
+  resetMessages: () => void;
+};
+
+function InputWithButton({ addMessage, resetMessages }: InputWithButtonProps) {
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
@@ -68,7 +79,16 @@ function InputWithButton({ addMessage, resetMessages }) {
 
 // Define the ChatRegion component
 function ChatRegion() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const [messages, setMessages] = useState(["I am on the right and get text."]);
+
+  const addMessage = (message:string):void => {
+    setMessages((prevMessages: string[]) => [...prevMessages, message]);
+  };
+
+  const resetMessages = () => {
+    setMessages([]);
+  };
+
   return (
     <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
       {messages.length > 0
@@ -92,4 +112,4 @@ function ChatRegion() {
   );
 }
 
-export default ChatRegion;
+export default ChatRegion
