@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { ButtonGroup } from "@mui/material";
@@ -44,31 +46,10 @@ function RightText({messages}: { messages : string[] }) {
     </div>
   );
 }
+import React, { useState } from "react";
+import { useChat } from "ai/react";
 
-// Define the InputWithButton component
-
-type InputWithButtonProps = {
-  addMessage: (message: string) => void;
-  resetMessages: () => void;
-};
-
-function InputWithButton({ addMessage, resetMessages }: InputWithButtonProps) {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleButtonClick = () => {
-    addMessage(inputValue);
-    setInputValue("");
-  };
-
-  const handleResetClick = () => {
-    resetMessages();
-  };
-
-  return (
+        return (
     <div>
       <TextField
         value={inputValue}
@@ -86,24 +67,30 @@ function InputWithButton({ addMessage, resetMessages }: InputWithButtonProps) {
   );
 }
 
-// Define the ChatRegion component
 function ChatRegion() {
-  const [messages, setMessages] = useState(["I am on the right and get text."]);
-
-  const addMessage = (message:string):void => {
-    setMessages((prevMessages: string[]) => [...prevMessages, message]);
-  };
-
-  const resetMessages = () => {
-    setMessages([]);
-  };
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
 
   return (
-    <div>
-      <RightText messages={messages} />
-      <InputWithButton addMessage={addMessage} resetMessages={resetMessages} />
+    <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
+      {messages.length > 0
+        ? messages.map(m => (
+            <div key={m.id} className="whitespace-pre-wrap mb-4">
+              <b>{m.role === 'user' ? 'User: ' : 'AI: '}</b>
+              {m.content}
+            </div>
+          ))
+        : null}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        />
+      </form>
     </div>
   );
 }
 
-export default ChatRegion;
+export default ChatRegion

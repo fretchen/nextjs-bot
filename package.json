@@ -12,6 +12,8 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.18",
+    "ai": "^2.2.22",
+    "langchain": "^0.0.187",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18"
