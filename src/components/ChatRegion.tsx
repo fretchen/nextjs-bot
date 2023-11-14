@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import styles from "./chat-region.module.css";
-
+import Button from "@mui/material/Button";
+import { ButtonGroup } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 type MessageBoxProps = {
   message: string;
 };
 
 function MessageBox({ message }: MessageBoxProps) {
-  return <div className={styles.messageBox}>{message}</div>;
+  return <div>
+    <Paper variant="outlined"><Typography align="right"><strong>User:</strong> {message}</Typography></Paper></div>;
 }
 
 function AnswerBox() {
@@ -17,18 +22,25 @@ function AnswerBox() {
     randomString += letters[Math.floor(Math.random() * letters.length)];
   }
 
-  return <div className={styles.answerBox}>{randomString}</div>;
+  return <div>
+    <Paper><Typography align="left"><strong>AI:</strong> {randomString}</Typography></Paper></div>;
 }
 
 function RightText({messages}: { messages : string[] }) {
   return (
-    <div className={styles.right}>
+    <div>
+      <Grid container spacing={2}>
       {messages.map((message, index) => (
         <React.Fragment key={index}>
-          <MessageBox message={message} />
-          <AnswerBox />
+          <Grid item xs={12}>
+            <MessageBox message={message} />
+          </Grid>
+          <Grid item xs={12}>
+            <AnswerBox />
+          </Grid>
         </React.Fragment>
       ))}
+      </Grid>
     </div>
   );
 }
@@ -58,18 +70,18 @@ function InputWithButton({ addMessage, resetMessages }: InputWithButtonProps) {
 
   return (
     <div>
-      <input
-        type="text"
+      <TextField
         value={inputValue}
         onChange={handleInputChange}
-        className={styles.inputField}
       />
-      <button onClick={handleButtonClick} className={styles.sendButton}>
+      <ButtonGroup variant="contained" aria-label="outlined primary button group">
+      <Button variant="contained" onClick={handleButtonClick}>
         Send
-      </button>
-      <button onClick={handleResetClick} className={styles.resetButton}>
+      </Button>
+      <Button variant="contained" color="warning" onClick={handleResetClick}>
         Reset
-      </button>
+      </Button>
+      </ButtonGroup>
     </div>
   );
 }
@@ -87,7 +99,7 @@ function ChatRegion() {
   };
 
   return (
-    <div className={styles.right}>
+    <div>
       <RightText messages={messages} />
       <InputWithButton addMessage={addMessage} resetMessages={resetMessages} />
     </div>
