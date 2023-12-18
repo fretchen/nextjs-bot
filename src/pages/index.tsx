@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react"
+import React from "react";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
 
@@ -25,9 +25,14 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-type Props = {
-  reports: PostProps[]
+interface Report {
+  id: number;
+  content: string;
 }
+
+type Props = {
+  reports: Report[];
+};
 
 const Home: React.FC<Props> = (props) => {
   return (
@@ -58,7 +63,6 @@ const Home: React.FC<Props> = (props) => {
       </main>
     </>
   );
-}
+};
 
-
-export default Home
+export default Home;
