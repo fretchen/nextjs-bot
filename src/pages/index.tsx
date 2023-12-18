@@ -1,9 +1,13 @@
 import Head from "next/head";
+import React from "react"
 import { Inter } from "next/font/google";
+import { GetStaticProps } from "next";
 
 import LeftRegion from "../components/LeftRegion";
 import ChatRegion from "../components/ChatRegion";
 import Grid from "@mui/material/Grid";
+
+import prisma from "../lib/prisma";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +25,11 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default function Home(props) {
+type Props = {
+  reports: PostProps[]
+}
+
+const Home: React.FC<Props> = (props) => {
   return (
     <>
       <Head>
@@ -51,3 +59,6 @@ export default function Home(props) {
     </>
   );
 }
+
+
+export default Home
