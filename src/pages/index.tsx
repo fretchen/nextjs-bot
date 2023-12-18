@@ -1,13 +1,27 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 
-import LeftRegion from "../components/LeftRegion"
-import ChatRegion from "../components/ChatRegion"
-import Grid from '@mui/material/Grid'
+import LeftRegion from "../components/LeftRegion";
+import ChatRegion from "../components/ChatRegion";
+import Grid from "@mui/material/Grid";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async () => {
+  const first = await prisma.report.findUnique({
+    where: {
+      id: 1,
+    },
+  });
+  const reports = await prisma.report.findMany();
+
+  return {
+    props: { reports },
+    revalidate: 10,
+  };
+};
+
+export default function Home(props) {
   return (
     <>
       <Head>
@@ -20,16 +34,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={inter.className}>
-        <Grid container alignItems="center" 
-  justifyContent="center"
-  sx={{minHeight:"100vh"}}>
-    <Grid item xs={6}>
-      <LeftRegion />
-    </Grid>
-    <Grid item xs={6}>
-      <ChatRegion />
-    </Grid>
-  </Grid>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="center"
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item xs={6}>
+            <LeftRegion reports={props.reports} />
+          </Grid>
+          <Grid item xs={6}>
+            <ChatRegion />
+          </Grid>
+        </Grid>
       </main>
     </>
   );

@@ -1,17 +1,7 @@
 import React from "react";
-import { GetStaticProps } from "next"
-import prisma from '../lib/prisma';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const reports = await prisma.report.findMany();
-  return { 
-    props: { reports }, 
-    revalidate: 10 
-  }
-}
 // Define the LeftRegion component
-function LeftRegion(props) {
-  console.log(props);
+function LeftRegion({ reports }) {
   return (
     <div>
       <p>
@@ -20,8 +10,13 @@ function LeftRegion(props) {
         <br />
         The code separation really worked out.
       </p>
-      
-      
+      {reports &&
+        reports.map((report, index) => (
+          <div key={index}>
+            <p>{report.title}</p>
+            <p>{report.content}</p>
+          </div>
+        ))}
     </div>
   );
 }

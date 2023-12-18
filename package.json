@@ -18,7 +18,8 @@
     "langchain": "^0.0.187",
     "next": "14.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "vercel": "^32.7.2"
   },
   "devDependencies": {
     "@types/node": "20.9.0",
