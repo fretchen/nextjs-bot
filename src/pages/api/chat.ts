@@ -21,8 +21,8 @@ export default async function POST(req: Request) {
       (messages as Message[]).map((m) =>
         m.role == "user"
           ? new HumanMessage(m.content)
-          : new AIMessage(m.content)
-      )
+          : new AIMessage(m.content),
+      ),
     );
 
   return new StreamingTextResponse(stream);

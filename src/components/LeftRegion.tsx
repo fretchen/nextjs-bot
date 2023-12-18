@@ -1,7 +1,7 @@
 import React from "react";
 
 // Define the LeftRegion component
-function LeftRegion() {
+function LeftRegion({ reports }) {
   return (
     <div>
       <p>
@@ -10,6 +10,13 @@ function LeftRegion() {
         <br />
         The code separation really worked out.
       </p>
+      {reports &&
+        reports.map((report, index) => (
+          <div key={index}>
+            <p>{report.title}</p>
+            <p>{report.content}</p>
+          </div>
+        ))}
     </div>
   );
 }
