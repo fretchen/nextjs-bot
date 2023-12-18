@@ -1,5 +1,0 @@
--- CreateTable
-CREATE TABLE "Report" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "report" TEXT NOT NULL
-);
