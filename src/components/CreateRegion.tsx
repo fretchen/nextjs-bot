@@ -1,13 +1,11 @@
+
+import { Typography } from "@mui/material";
 import React, { useState } from "react";
-import Router from "next/router";
-import Head from "next/head";
 
 import { Input } from '@mui/material';
-import { Inter } from "next/font/google";
+import Router from "next/router";
 
-const inter = Inter({ subsets: ["latin"] });
-
-const Draft: React.FC = () => {
+function CreateRegion() {
   const [content, setContent] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,23 +35,12 @@ const Draft: React.FC = () => {
       console.error(error);
     }
   };
-
   return (
-    <>
-      <Head>
-        <title>My AI Next Playground</title>
-        <meta
-          name="description"
-          content="Test simple AI streaming with Ollama"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={inter.className}>
-        <div>
-          <form onSubmit={submitData}>
-            <h1>New Draft</h1>
-            <Input
+    <div>
+        <Typography variant="h2" gutterBottom> Upload Document </Typography>
+                  <form onSubmit={submitData}>
+
+                    <Input
             type="file"
               onChange={handleFileChange}
             />
@@ -63,9 +50,7 @@ const Draft: React.FC = () => {
             </a>
           </form>
         </div>
-      </main>
-    </>
   );
-};
+}
 
-export default Draft;
+export default CreateRegion;

@@ -1,23 +1,35 @@
 import React from "react";
 
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+
+import CreateRegion from "./CreateRegion";
+import DocumentRegion from "./DocumentView";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 // Define the LeftRegion component
 function LeftRegion({ reports }) {
   return (
-    <div>
-      <p>
-        I am on the left. <br />
-        One day you might be able to see uploaded documents up here.
-        <br />
-        The code separation really worked out.
-      </p>
-      {reports &&
-        reports.map((report, index) => (
-          <div key={index}>
-            <p>{report.title}</p>
-            <p>{report.content.substring(0, 50)}</p>
-          </div>
-        ))}
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <DocumentRegion reports={reports}/>
+        </Grid>
+         <Grid item xs={12}>
+          <CreateRegion/>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
