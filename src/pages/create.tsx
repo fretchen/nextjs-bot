@@ -3,6 +3,8 @@ import Router from "next/router";
 import Head from "next/head";
 
 import TextField from "@mui/material/TextField";
+
+import { Input } from '@mui/material';
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,16 +12,29 @@ const inter = Inter({ subsets: ["latin"] });
 const Draft: React.FC = () => {
   const [content, setContent] = useState("");
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setContent(e.target.files[0]);
+    }
+  };
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { content };
-      await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      await Router.push("/");
+      const reader = new FileReader();
+      reader.readAsDataURL(content);
+      reader.onloadend = async () => {
+        const base64data = reader.result;
+        const body = { file: base64data };
+        console.log("body");
+        console.log(body);
+        await fetch("/api/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        await Router.push("/");
+      };
     } catch (error) {
       console.error(error);
     }
@@ -40,10 +55,9 @@ const Draft: React.FC = () => {
         <div>
           <form onSubmit={submitData}>
             <h1>New Draft</h1>
-            <TextField
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Content of the report"
-              value={content}
+            <Input
+            type="file"
+              onChange={handleFileChange}
             />
             <input disabled={!content} type="submit" value="Create" />
             <a className="back" href="#" onClick={() => Router.push("/")}>

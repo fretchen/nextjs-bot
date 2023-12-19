@@ -14,7 +14,7 @@ function LeftRegion({ reports }) {
         reports.map((report, index) => (
           <div key={index}>
             <p>{report.title}</p>
-            <p>{report.content}</p>
+            <p>{report.content.substring(0, 50)}</p>
           </div>
         ))}
     </div>
